@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is Home Page</h1>
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'contacts' %}">Contacts</a>
+
+    <ul>
+        {% for todo in todos %}
+        <li>{{ todo.name }} - {{todo.is_done}}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите имя</label><br>
+            <input type="text" name="name" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+
+    {% if people.count > 0 %}
+    <h2>Список пользователей</h2>
+    <table>
+        <thead><th>ID</th><th>Имя</th></thead>
+        {% for person in people %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
